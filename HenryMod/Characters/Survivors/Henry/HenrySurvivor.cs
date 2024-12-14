@@ -71,9 +71,9 @@ namespace HenryMod.Survivors.Henry
                 }
         };
 
-        public override UnlockableDef characterUnlockableDef => HenryContent.Unlockables.characterUnlockableDef;
+        public override UnlockableDef characterUnlockableDef => Content.CharacterUnlockables.characterUnlockableDef;
         
-        public override ItemDisplaysBase itemDisplays => new HenryContent.ItemDisplaySetup();
+        public override ItemDisplaysBase itemDisplays => new Content.CharacterItemDisplaySetup();
 
         //set in base classes
         public override AssetBundle assetBundle { get; protected set; }
@@ -98,7 +98,7 @@ namespace HenryMod.Survivors.Henry
         public override void InitializeCharacter()
         {
             //need the character unlockable before you initialize the survivordef
-            HenryContent.Unlockables.Init();
+            Content.CharacterUnlockables.Init();
             
             //the magic. creating your survivor
             base.InitializeCharacterBodyPrefab();
@@ -106,14 +106,14 @@ namespace HenryMod.Survivors.Henry
             base.InitializeSurvivor();
             base.InitializeItemDisplays();
 
-            HenryContent.States.Init();
-            HenryContent.Buffs.Init(assetBundle);
-            HenryContent.DamageTypes.Init();
+            Content.CharacterStates.Init();
+            Content.CharacterBuffs.Init(assetBundle);
+            Content.CharacterDamageTypes.Init();
 
-            HenryContent.Config.Init();
-            HenryContent.Tokens.Init();
+            Content.CharacterConfig.Init();
+            Content.CharacterTokens.Init();
 
-            HenryContent.Assets.Init(assetBundle);
+            Content.CharacterAssets.Init(assetBundle);
 
             InitializeEntityStateMachines();
             InitializeSkills();
@@ -430,7 +430,7 @@ namespace HenryMod.Survivors.Henry
             //Modules.Prefabs.CloneDopplegangerMaster(bodyPrefab, masterName, "Merc");
 
             //how to set up AI in code
-            HenryContent.AI.Init(bodyPrefab, masterName);
+            Content.CharacterAI.Init(bodyPrefab, masterName);
 
             //how to load a master set up in unity, can be an empty gameobject with just AISkillDriver components
             //assetBundle.LoadMaster(bodyPrefab, masterName);
@@ -444,7 +444,7 @@ namespace HenryMod.Survivors.Henry
         private void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, R2API.RecalculateStatsAPI.StatHookEventArgs args)
         {
 
-            if (sender.HasBuff(HenryContent.Buffs.armorBuff))
+            if (sender.HasBuff(Content.CharacterBuffs.armorBuff))
             {
                 args.armorAdd += 300;
             }

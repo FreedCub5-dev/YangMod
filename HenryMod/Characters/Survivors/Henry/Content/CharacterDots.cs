@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace HenryMod.Survivors.Henry.HenryContent
+namespace HenryMod.Survivors.Henry.Content
 {
-    internal class Dots
+    internal class CharacterDots
     {
     }
 }

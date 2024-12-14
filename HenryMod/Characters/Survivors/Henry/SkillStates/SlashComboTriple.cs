@@ -17,6 +17,7 @@ namespace HenryMod.Survivors.Henry.SkillStates
             swingIndex = i;
         }
 
+        //check our swingIndex if we're at the last hit of the combo
         public bool isComboFinisher => swingIndex == 2; //first hit is 0, so the third hit is 2
 
         public override void OnEnter()
@@ -24,9 +25,9 @@ namespace HenryMod.Survivors.Henry.SkillStates
             //check combo finisher to change the attack hitbox. you'll have to set it up on your body and register it in your survivor setup code
             hitBoxGroupName = isComboFinisher ? "SwordBigGroup" : "SwordGroup";
 
-            damageType = DamageType.Generic;
+            damageType = DamageTypeCombo.GenericPrimary;
             // combo fnisher has more damage
-            damageCoefficient = isComboFinisher ? HenryContent.StaticValues.swordFinisherDamageCoefficient : HenryContent.StaticValues.swordDamageCoefficient;
+            damageCoefficient = isComboFinisher ? Content.CharacterStaticValues.swordFinisherDamageCoefficient : Content.CharacterStaticValues.swordDamageCoefficient;
             procCoefficient = 1f;
             pushForce = 300f;
             bonusForce = Vector3.zero;
@@ -34,34 +35,39 @@ namespace HenryMod.Survivors.Henry.SkillStates
             // combo finisher lasts a little longer
             baseDuration = isComboFinisher ? 2 : 1f;
 
-            attackStartPercentTime = 0.2f;
-            attackEndPercentTime = 0.4f;
+            attackStartTimeFraction = 0.2f;
+            attackEndTimeFraction = 0.4f;
 
-            earlyExitPercentTime = 0.6f;
+            earlyExitTimeFraction = 0.6f;
 
             //combo finisher has a bit meatier hitstop. you get the pattern by now
             hitStopDuration = isComboFinisher ? 0.1f : 0.012f;
             attackRecoil = 0.5f;
             hitHopVelocity = 4f;
+
             //congratulations, you now are a master of the ternary (?) operator (or you will be in a second when you look it up right now)
             swingSoundString = isComboFinisher ? "HenrySwordSwingEpic" : "HenrySwordSwing";
             playbackRateParam = "Slash.playbackRate";
             muzzleString = GetComboMuzzle();
-            swingEffectPrefab = HenryContent.Assets.swordSwingEffect;
-            hitEffectPrefab = HenryContent.Assets.swordHitImpactEffect;
+            swingEffectPrefab = Content.CharacterAssets.swordSwingEffect;
+            hitEffectPrefab = Content.CharacterAssets.swordHitImpactEffect;
 
-            impactSound = HenryContent.Assets.swordHitSoundEvent.index;
+            impactSound = Content.CharacterAssets.swordHitSoundEvent.index;
 
             base.OnEnter();
 
             PlayAttackAnimation();
+        }
+
+        //nani? what is this? overlapAttack? (mouse over it)
+        protected override void ModifyOverlapAttack(OverlapAttack overlapAttack)
+        {
+            base.ModifyOverlapAttack(overlapAttack);
 
             //third hit in the combo applies a dot
             if (isComboFinisher)
             {
-                //nani? what is this? overlapAttack? (mouse over it)
-                overlapAttack.AddModdedDamageType(HenryContent.DamageTypes.ComboFinisherDebuffDamage);
-                //alternatively, R2API.DamageAPI.AddModdedDamageType(overlapAttack, HenryContent.ComboFinisherDebuffDamage);
+                R2API.DamageAPI.AddModdedDamageType(overlapAttack, Content.CharacterDamageTypes.ComboFinisherDebuffDamage);
             }
         }
 

@@ -2,9 +2,9 @@
 using RoR2;
 using UnityEngine;
 
-namespace HenryMod.Survivors.Henry.HenryContent
+namespace HenryMod.Survivors.Henry.Content
 {
-    public static class Unlockables
+    public static class CharacterUnlockables
     {
         public static UnlockableDef characterUnlockableDef = null;
         public static UnlockableDef masterySkinUnlockableDef = null;

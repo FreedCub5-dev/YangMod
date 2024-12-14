@@ -1,9 +1,9 @@
 ﻿using BepInEx.Configuration;
 using HenryMod.Modules;
 
-namespace HenryMod.Survivors.Henry.HenryContent
+namespace HenryMod.Survivors.Henry.Content
 {
-    public static class Config
+    public static class CharacterConfig
     {
         public static ConfigEntry<bool> someConfigBool;
         public static ConfigEntry<float> someConfigFloat;

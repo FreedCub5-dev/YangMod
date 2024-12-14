@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace HenryMod.Survivors.Henry.HenryContent
+namespace HenryMod.Survivors.Henry.Content
 {
-    public static class StaticValues
+    public static class CharacterStaticValues
     {
         public const float swordDamageCoefficient = 2.8f;
         internal static float swordFinisherDamageCoefficient = 4;

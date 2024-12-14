@@ -2,9 +2,9 @@
 using HenryMod.Modules;
 using HenryMod.Survivors.Henry.Achievements;
 
-namespace HenryMod.Survivors.Henry.HenryContent
+namespace HenryMod.Survivors.Henry.Content
 {
-    public static class Tokens
+    public static class CharacterTokens
     {
         public static void Init()
         {
@@ -47,12 +47,12 @@ namespace HenryMod.Survivors.Henry.HenryContent
 
             #region Primary
             Language.Add(prefix + "PRIMARY_SLASH_NAME", "Sword");
-            Language.Add(prefix + "PRIMARY_SLASH_DESCRIPTION", Modules.Tokens.agilePrefix + $"Swing forward for <style=cIsDamage>{100f * HenryContent.StaticValues.swordDamageCoefficient}% damage</style>.");
+            Language.Add(prefix + "PRIMARY_SLASH_DESCRIPTION", Modules.Tokens.agilePrefix + $"Swing forward for <style=cIsDamage>{100f * Content.CharacterStaticValues.swordDamageCoefficient}% damage</style>.");
             #endregion
 
             #region Secondary
             Language.Add(prefix + "SECONDARY_GUN_NAME", "Handgun");
-            Language.Add(prefix + "SECONDARY_GUN_DESCRIPTION", Modules.Tokens.agilePrefix + $"Fire a handgun for <style=cIsDamage>{100f * HenryContent.StaticValues.gunDamageCoefficient}% damage</style>.");
+            Language.Add(prefix + "SECONDARY_GUN_DESCRIPTION", Modules.Tokens.agilePrefix + $"Fire a handgun for <style=cIsDamage>{100f * Content.CharacterStaticValues.gunDamageCoefficient}% damage</style>.");
             #endregion
 
             #region Utility
@@ -62,7 +62,7 @@ namespace HenryMod.Survivors.Henry.HenryContent
 
             #region Special
             Language.Add(prefix + "SPECIAL_BOMB_NAME", "Bomb");
-            Language.Add(prefix + "SPECIAL_BOMB_DESCRIPTION", $"Throw a bomb for <style=cIsDamage>{100f * HenryContent.StaticValues.bombDamageCoefficient}% damage</style>.");
+            Language.Add(prefix + "SPECIAL_BOMB_DESCRIPTION", $"Throw a bomb for <style=cIsDamage>{100f * Content.CharacterStaticValues.bombDamageCoefficient}% damage</style>.");
             #endregion
 
             #region Achievements

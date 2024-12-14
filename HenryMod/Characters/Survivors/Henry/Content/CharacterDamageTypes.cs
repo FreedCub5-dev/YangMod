@@ -1,8 +1,8 @@
 ﻿using R2API;
 
-namespace HenryMod.Survivors.Henry.HenryContent
+namespace HenryMod.Survivors.Henry.Content
 {
-    public class DamageTypes
+    public class CharacterDamageTypes
     {
         public static DamageAPI.ModdedDamageType ComboFinisherDebuffDamage;
 

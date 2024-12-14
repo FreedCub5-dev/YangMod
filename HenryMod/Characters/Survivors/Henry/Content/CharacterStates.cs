@@ -1,8 +1,8 @@
 ﻿using HenryMod.Survivors.Henry.SkillStates;
 
-namespace HenryMod.Survivors.Henry.HenryContent
+namespace HenryMod.Survivors.Henry.Content
 {
-    public static class States
+    public static class CharacterStates
     {
         public static void Init()
         {

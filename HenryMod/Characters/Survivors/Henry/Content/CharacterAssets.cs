@@ -4,9 +4,9 @@ using HenryMod.Modules;
 using System;
 using RoR2.Projectile;
 
-namespace HenryMod.Survivors.Henry.HenryContent
+namespace HenryMod.Survivors.Henry.Content
 {
-    public static class Assets
+    public static class CharacterAssets
     {
         // particle effects
         public static GameObject swordSwingEffect;

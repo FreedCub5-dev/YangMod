@@ -6,9 +6,8 @@ using UnityEngine.Networking;
 
 namespace HenryMod.Survivors.Henry.SkillStates
 {
-    public class SlashCombo : BaseMeleeAttack, SteppedSkillDef.IStepSetter
-    {
-        public int swingIndex;
+    public class SlashCombo : BaseMeleeAttack
+    { 
 
         //used by the steppedskilldef to increment your combo whenever this state is entered
         public void SetStep(int i)
@@ -21,18 +20,18 @@ namespace HenryMod.Survivors.Henry.SkillStates
             //mouse over variables for detailed explanations
             hitBoxGroupName = "SwordGroup";
 
-            damageType = DamageType.Generic;
-            damageCoefficient = HenryContent.StaticValues.swordDamageCoefficient;
+            damageType = DamageTypeCombo.GenericPrimary;
+            damageCoefficient = Content.CharacterStaticValues.swordDamageCoefficient;
             procCoefficient = 1f;
             pushForce = 300f;
             bonusForce = Vector3.zero;
             baseDuration = 1f;
 
             //0-1 multiplier of baseduration, used to time when the hitbox is out (usually based on the run time of the animation)
-            attackStartPercentTime = 0.2f;
-            attackEndPercentTime = 0.4f;
+            attackStartTimeFraction = 0.2f;
+            attackEndTimeFraction = 0.4f;
 
-            earlyExitPercentTime = 0.6f;
+            earlyExitTimeFraction = 0.6f;
 
             hitStopDuration = 0.012f;
             attackRecoil = 0.5f;
@@ -41,10 +40,10 @@ namespace HenryMod.Survivors.Henry.SkillStates
             swingSoundString = "HenrySwordSwing";
             playbackRateParam = "Slash.playbackRate";
             muzzleString = swingIndex == 0 ? "SwingLeft" : "SwingRight";
-            swingEffectPrefab = HenryContent.Assets.swordSwingEffect;
-            hitEffectPrefab = HenryContent.Assets.swordHitImpactEffect;
+            swingEffectPrefab = Content.CharacterAssets.swordSwingEffect;
+            hitEffectPrefab = Content.CharacterAssets.swordHitImpactEffect;
 
-            impactSound = HenryContent.Assets.swordHitSoundEvent.index;
+            impactSound = Content.CharacterAssets.swordHitSoundEvent.index;
 
             base.OnEnter();
 
@@ -78,21 +77,6 @@ namespace HenryMod.Survivors.Henry.SkillStates
         public override void OnExit()
         {
             base.OnExit();
-        }
-
-        //add these functions for steppedskilldefs
-        //bit advanced so don't worry about this, it's for networking.
-        //long story short this syncs a value from authority (current player) to all other clients, so the swingIndex is the same for all machines
-        public override void OnSerialize(NetworkWriter writer)
-        {
-            base.OnSerialize(writer);
-            writer.Write(swingIndex);
-        }
-
-        public override void OnDeserialize(NetworkReader reader)
-        {
-            base.OnDeserialize(reader);
-            swingIndex = reader.ReadInt32();
         }
     }
 }
