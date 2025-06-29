@@ -11,7 +11,7 @@ using UnityEngine;
                     {localScale})
 */
 
-namespace HenryMod.Survivors.Henry.Content
+namespace HenryMod.Survivors.Henry.HenryContent
 {
     public class CharacterItemDisplaySetup : ItemDisplaysBase
     {

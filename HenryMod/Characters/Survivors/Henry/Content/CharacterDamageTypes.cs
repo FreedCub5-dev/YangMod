@@ -1,14 +1,14 @@
 ﻿using R2API;
 
-namespace HenryMod.Survivors.Henry.Content
+namespace HenryMod.Survivors.Henry.HenryContent
 {
     public class CharacterDamageTypes
     {
-        public static DamageAPI.ModdedDamageType ComboFinisherDebuffDamage;
+        public static DamageAPI.ModdedDamageType comboFinisherDebuffDamage;
 
         public static void Init()
         {
-            ComboFinisherDebuffDamage = DamageAPI.ReserveDamageType();
+            comboFinisherDebuffDamage = DamageAPI.ReserveDamageType();
         }
     }
 }

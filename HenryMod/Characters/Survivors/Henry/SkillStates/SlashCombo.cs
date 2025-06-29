@@ -7,21 +7,14 @@ using UnityEngine.Networking;
 namespace HenryMod.Survivors.Henry.SkillStates
 {
     public class SlashCombo : BaseMeleeAttack
-    { 
-
-        //used by the steppedskilldef to increment your combo whenever this state is entered
-        public void SetStep(int i)
-        {
-            swingIndex = i;
-        }
-
+    {
         public override void OnEnter()
         {
             //mouse over variables for detailed explanations
             hitBoxGroupName = "SwordGroup";
 
             damageType = DamageTypeCombo.GenericPrimary;
-            damageCoefficient = Content.CharacterStaticValues.swordDamageCoefficient;
+            damageCoefficient = HenryContent.CharacterStaticValues.swordDamageCoefficient;
             procCoefficient = 1f;
             pushForce = 300f;
             bonusForce = Vector3.zero;
@@ -39,11 +32,12 @@ namespace HenryMod.Survivors.Henry.SkillStates
 
             swingSoundString = "HenrySwordSwing";
             playbackRateParam = "Slash.playbackRate";
+            //swingIndex is set by the base class being a steppedSkillDef. See SlashComboTriple for more detail
             muzzleString = swingIndex == 0 ? "SwingLeft" : "SwingRight";
-            swingEffectPrefab = Content.CharacterAssets.swordSwingEffect;
-            hitEffectPrefab = Content.CharacterAssets.swordHitImpactEffect;
+            swingEffectPrefab = HenryContent.CharacterAssets.swordSwingEffect;
+            hitEffectPrefab = HenryContent.CharacterAssets.swordHitImpactEffect;
 
-            impactSound = Content.CharacterAssets.swordHitSoundEvent.index;
+            impactSound = HenryContent.CharacterAssets.swordHitSoundEvent.index;
 
             base.OnEnter();
 

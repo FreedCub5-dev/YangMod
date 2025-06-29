@@ -90,6 +90,7 @@ namespace HenryMod.Modules.BaseStates
             animator = GetModelAnimator();
             StartAimMode(0.5f + duration, false);
 
+            //nani? what is this? overlapAttack? (mouse over it)
             overlapAttack = new OverlapAttack();
             overlapAttack.damageType = damageType;
             overlapAttack.attacker = gameObject;

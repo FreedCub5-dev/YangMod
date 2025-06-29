@@ -3,6 +3,7 @@ using HenryMod.Modules;
 using HenryMod.Modules.Characters;
 using HenryMod.Survivors.Henry.Components;
 using HenryMod.Survivors.Henry.SkillStates;
+using R2API;
 using RoR2;
 using RoR2.Skills;
 using System;
@@ -15,22 +16,20 @@ namespace HenryMod.Survivors.Henry
     {
         //used to load the assetbundle for this character. must be unique
         public override string assetBundleName => "myassetbundle"; //if you do not change this, you are giving permission to deprecate the mod
-
         //used in the rest of your character setup. must be unique.
         public const string CHARACTER_NAME = "Henry"; //if you do not change this, you are giving permission to deprecate the mod
 
         //the name of your character prefab. must be unique
         public override string bodyName => CHARACTER_NAME + "Body"; //if you do not change CHARACTER_NAME, you get the point by now
-
         //the name of the ai master for vengeance and goobo. must be unique
         public override string masterName => CHARACTER_NAME + "MonsterMaster"; //if you do not yadda yadda
-
         //the names of the prefabs that we are loading from the bundle to build your character. must match the names of the asset names in unity.
         //doesn't have to be unique, but probably should be anyways.
         public override string modelPrefabName => "mdl" + CHARACTER_NAME;
         public override string displayPrefabName => CHARACTER_NAME + "Display";
 
         public const string TOKEN_PREFIX = HenryPlugin.DEVELOPER_PREFIX + "_" + CHARACTER_NAME + "_";
+
         //used when registering your survivor's language tokens
         public override string survivorTokenPrefix => TOKEN_PREFIX;
         
@@ -56,24 +55,24 @@ namespace HenryMod.Survivors.Henry
 
         public override CustomRendererInfo[] customRendererInfos => new CustomRendererInfo[]
         {
-                new CustomRendererInfo
-                {
-                    childName = "SwordModel",
-                    material = assetBundle.LoadMaterial("matHenry"),
-                },
-                new CustomRendererInfo
-                {
-                    childName = "GunModel",
-                },
-                new CustomRendererInfo
-                {
-                    childName = "Model",
-                }
+            new CustomRendererInfo
+            {
+                childName = "SwordModel",
+                material = assetBundle.LoadMaterial("matHenry"),
+            },
+            new CustomRendererInfo
+            {
+                childName = "GunModel",
+            },
+            new CustomRendererInfo
+            {
+                childName = "Model",
+            }
         };
 
-        public override UnlockableDef characterUnlockableDef => Content.CharacterUnlockables.characterUnlockableDef;
+        public override UnlockableDef characterUnlockableDef => HenryContent.CharacterUnlockables.characterUnlockableDef;
         
-        public override ItemDisplaysBase itemDisplays => new Content.CharacterItemDisplaySetup();
+        public override ItemDisplaysBase itemDisplays => new HenryContent.CharacterItemDisplaySetup();
 
         //set in base classes
         public override AssetBundle assetBundle { get; protected set; }
@@ -86,34 +85,37 @@ namespace HenryMod.Survivors.Henry
 
         public override void Initialize()
         {
-            //uncomment if you have multiple characters
+            ////uncomment if you have multiple characters
             //ConfigEntry<bool> characterEnabled = Config.CharacterEnableConfig("Survivors", "Henry");
 
             //if (!characterEnabled.Value)
             //    return;
 
             base.Initialize();
+
+            InitializeCharacter();
         }
 
         public override void InitializeCharacter()
         {
             //need the character unlockable before you initialize the survivordef
-            Content.CharacterUnlockables.Init();
+            HenryContent.CharacterUnlockables.Init();
             
             //the magic. creating your survivor
             base.InitializeCharacterBodyPrefab();
+            base.InitializeItemDisplays();
             base.InitializeDisplayPrefab();
             base.InitializeSurvivor();
-            base.InitializeItemDisplays();
 
-            Content.CharacterStates.Init();
-            Content.CharacterBuffs.Init(assetBundle);
-            Content.CharacterDamageTypes.Init();
+            HenryContent.CharacterStates.Init();
+            HenryContent.CharacterBuffs.Init(assetBundle);
+            HenryContent.CharacterDots.Init();
+            HenryContent.CharacterDamageTypes.Init();
 
-            Content.CharacterConfig.Init();
-            Content.CharacterTokens.Init();
+            HenryContent.CharacterConfig.Init();
+            HenryContent.CharacterTokens.Init();
 
-            Content.CharacterAssets.Init(assetBundle);
+            HenryContent.CharacterAssets.Init(assetBundle);
 
             InitializeEntityStateMachines();
             InitializeSkills();
@@ -336,7 +338,8 @@ namespace HenryMod.Survivors.Henry
 
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.ThrowBomb)),
                 //setting this to the "weapon2" EntityStateMachine allows us to cast this skill at the same time primary, which is set to the "weapon" EntityStateMachine
-                activationStateMachineName = "Weapon2", interruptPriority = EntityStates.InterruptPriority.Skill,
+                activationStateMachineName = "Weapon2",
+                interruptPriority = EntityStates.InterruptPriority.Skill,
 
                 baseMaxStock = 1,
                 baseRechargeInterval = 10f,
@@ -430,7 +433,7 @@ namespace HenryMod.Survivors.Henry
             //Modules.Prefabs.CloneDopplegangerMaster(bodyPrefab, masterName, "Merc");
 
             //how to set up AI in code
-            Content.CharacterAI.Init(bodyPrefab, masterName);
+            HenryContent.CharacterAI.Init(bodyPrefab, masterName);
 
             //how to load a master set up in unity, can be an empty gameobject with just AISkillDriver components
             //assetBundle.LoadMaster(bodyPrefab, masterName);
@@ -439,12 +442,23 @@ namespace HenryMod.Survivors.Henry
         private void AddHooks()
         {
             R2API.RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
+
+            On.RoR2.HealthComponent.TakeDamageProcess += HealthComponent_TakeDamageProcess;
+        }
+
+        private void HealthComponent_TakeDamageProcess(On.RoR2.HealthComponent.orig_TakeDamageProcess orig, HealthComponent self, DamageInfo damageInfo)
+        {
+            orig(self, damageInfo);
+            if(!damageInfo.rejected && damageInfo.HasModdedDamageType(HenryContent.CharacterDamageTypes.comboFinisherDebuffDamage))
+            {
+                DotController.InflictDot(self.gameObject, damageInfo.attacker, HenryContent.CharacterDots.comboFinisherDot, 4, 1);
+            }
         }
 
         private void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, R2API.RecalculateStatsAPI.StatHookEventArgs args)
         {
 
-            if (sender.HasBuff(Content.CharacterBuffs.armorBuff))
+            if (sender.HasBuff(HenryContent.CharacterBuffs.armorBuff))
             {
                 args.armorAdd += 300;
             }

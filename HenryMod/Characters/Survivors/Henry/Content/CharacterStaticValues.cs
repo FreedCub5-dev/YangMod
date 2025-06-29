@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HenryMod.Survivors.Henry.Content
+namespace HenryMod.Survivors.Henry.HenryContent
 {
     public static class CharacterStaticValues
     {

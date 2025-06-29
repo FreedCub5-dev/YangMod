@@ -31,8 +31,6 @@ namespace HenryMod.Modules.Characters
         {
             instance = this as T;
             assetBundle = Asset.LoadAssetBundle(assetBundleName);
-
-            InitializeCharacter();
         }
 
         public abstract void InitializeCharacter();

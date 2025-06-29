@@ -1,7 +1,7 @@
 ﻿using BepInEx.Configuration;
 using HenryMod.Modules;
 
-namespace HenryMod.Survivors.Henry.Content
+namespace HenryMod.Survivors.Henry.HenryContent
 {
     public static class CharacterConfig
     {

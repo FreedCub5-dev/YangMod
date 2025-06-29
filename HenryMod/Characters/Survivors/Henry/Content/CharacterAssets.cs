@@ -4,7 +4,7 @@ using HenryMod.Modules;
 using System;
 using RoR2.Projectile;
 
-namespace HenryMod.Survivors.Henry.Content
+namespace HenryMod.Survivors.Henry.HenryContent
 {
     public static class CharacterAssets
     {
@@ -24,7 +24,6 @@ namespace HenryMod.Survivors.Henry.Content
 
         public static void Init(AssetBundle assetBundle)
         {
-
             _assetBundle = assetBundle;
 
             swordHitSoundEvent = Modules.Content.CreateAndAddNetworkSoundEventDef("HenrySwordHit");
