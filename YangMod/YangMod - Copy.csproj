@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A1B2C3D4-E5F6-47A8-A9B0-112233445566}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>YangMod</RootNamespace>
+    <AssemblyName>YangMod</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <!-- =============================
+       MANUAL REFERENCES SECTION
+       ============================= -->
+  <ItemGroup>
+    <!-- === RoR2 Game Assembly === -->
+	  <Reference Include="R2API">
+		  <HintPath>..\..\..\..\..\AppData\Roaming\r2modmanPlus-local\RiskOfRain2\profiles\Developer\BepInEx\plugins\tristanmcpherson-R2API\R2API.Legacy\R2API.dll</HintPath>
+		  <Private>False</Private>
+	  </Reference>
+    <!-- === Unity Base Assemblies === -->
+    <!-- === BepInEx === -->
+    <Reference Include="BepInEx">
+      <HintPath>C:\Users\brett\AppData\Roaming\r2modmanPlus-local\RiskOfRain2\profiles\Developer\BepInEx\core\BepInEx.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="R2API.ContentManagement">
+      <HintPath>..\..\..\..\..\AppData\Roaming\r2modmanPlus-local\RiskOfRain2\profiles\Developer\BepInEx\plugins\RiskofThunder-R2API_ContentManagement\R2API.ContentManagement\R2API.ContentManagement.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <!-- === R2API DLLs === -->
+    <Reference Include="R2API.Core">
+      <HintPath>C:\Users\brett\AppData\Roaming\r2modmanPlus-local\RiskOfRain2\profiles\Developer\BepInEx\plugins\RiskofThunder-R2API_Core\R2API.Core\R2API.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="R2API.Language">
+      <HintPath>C:\Users\brett\AppData\Roaming\r2modmanPlus-local\RiskOfRain2\profiles\Developer\BepInEx\plugins\RiskofThunder-R2API_Language\R2API.Language\R2API.Language.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="R2API.Prefab">
+      <HintPath>C:\Users\brett\AppData\Roaming\r2modmanPlus-local\RiskOfRain2\profiles\Developer\BepInEx\plugins\RiskofThunder-R2API_Prefab\R2API.Prefab\R2API.Prefab.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="R2API.RecalculateStats">
+      <HintPath>C:\Users\brett\AppData\Roaming\r2modmanPlus-local\RiskOfRain2\profiles\Developer\BepInEx\plugins\RiskofThunder-R2API_RecalculateStats\R2API.RecalculateStats\R2API.RecalculateStats.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="R2API.Sound">
+      <HintPath>C:\Users\brett\AppData\Roaming\r2modmanPlus-local\RiskOfRain2\profiles\Developer\BepInEx\plugins\RiskofThunder-R2API_Sound\R2API.Sound\R2API.Sound.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <!-- === Standard .NET Assemblies === -->
+    <Reference Include="System">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <!-- =============================
+       SOURCE CODE FILES SECTION
+       ============================= -->
+  <ItemGroup>
+    <Compile Include="Characters\Survivors\Yang\Achievements\YangMasteryAchievement.cs" />
+    <Compile Include="Characters\Survivors\Yang\Components\YangWeaponComponent.cs" />
+    <Compile Include="Characters\Survivors\Yang\Content\CustomBuff.cs" />
+    <Compile Include="Characters\Survivors\Yang\Content\YangAI.cs" />
+    <Compile Include="Characters\Survivors\Yang\Content\YangAssets.cs" />
+    <Compile Include="Characters\Survivors\Yang\Content\YangBuffs.cs" />
+    <Compile Include="Characters\Survivors\Yang\Content\YangConfig.cs" />
+    <Compile Include="Characters\Survivors\Yang\Content\YangItemDisplays.cs" />
+    <Compile Include="Characters\Survivors\Yang\Content\YangStates.cs" />
+    <Compile Include="Characters\Survivors\Yang\Content\YangStaticValues.cs" />
+    <Compile Include="Characters\Survivors\Yang\Content\YangTokens.cs" />
+    <Compile Include="Characters\Survivors\Yang\Content\YangUnlockables.cs" />
+    <Compile Include="Characters\Survivors\Yang\SkillStates\Burn.cs" />
+    <Compile Include="Characters\Survivors\Yang\SkillStates\Punch1.cs" />
+    <Compile Include="Characters\Survivors\Yang\SkillStates\Punch2.cs" />
+    <Compile Include="Characters\Survivors\Yang\SkillStates\Roll.cs" />
+    <Compile Include="Characters\Survivors\Yang\SkillStates\Shotgun.cs" />
+    <Compile Include="Characters\Survivors\Yang\YangSurvivor.cs" />
+    <Compile Include="Log.cs" />
+    <Compile Include="Modules\BaseContent\Achievements\BaseMasteryAchievement.cs" />
+    <Compile Include="Modules\BaseContent\BaseStates\BaseMeleeAttack.cs" />
+    <Compile Include="Modules\BaseContent\BaseStates\BaseTimedSkillState.cs" />
+    <Compile Include="Modules\BaseContent\Characters\CharacterBase.cs" />
+    <Compile Include="Modules\BaseContent\Characters\ItemDisplaysBase.cs" />
+    <Compile Include="Modules\BaseContent\Characters\SurvivorBase.cs" />
+    <Compile Include="Modules\Config.cs" />
+    <Compile Include="Modules\Content.cs" />
+    <Compile Include="Modules\ContentPacks.cs" />
+    <Compile Include="Modules\EntityStatesStubs.cs" />
+    <Compile Include="Modules\ItemDisplayCheck.cs" />
+    <Compile Include="Modules\ItemDisplays.cs" />
+    <Compile Include="Modules\Language.cs" />
+    <Compile Include="Modules\Materials.cs" />
+    <Compile Include="Modules\Prefabs.cs" />
+    <Compile Include="Modules\Skills.cs" />
+    <Compile Include="Modules\Skins.cs" />
+    <Compile Include="Modules\Tokens.cs" />
+    <Compile Include="Modules\UtilHelpers.cs" />
+    <Compile Include="Modules\YangModExtraStubs_Fixed.cs" />
+    <Compile Include="Modules\YangStates.cs" />
+    <Compile Include="Modules\YangTokens.cs" />
+    <Compile Include="Modules\YangWeaponComponent.cs" />
+    <Compile Include="obj\Debug\.NETFramework,Version=v4.8.AssemblyAttributes.cs" />
+    <Compile Include="obj\Debug\netstandard2.1\.NETStandard,Version=v2.1.AssemblyAttributes.cs" />
+    <Compile Include="obj\Debug\netstandard2.1\HenryMod.AssemblyInfo.cs" />
+    <Compile Include="obj\Debug\netstandard2.1\YangMod.AssemblyInfo.cs" />
+    <Compile Include="Support\YangModSupportStubs.cs" />
+    <Compile Include="YangPlugin.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
